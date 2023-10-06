@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+
+<style>
+
+*{
+margin: 0;
+
+padding: 0;
+
+font-family: Arial, Helvetica, sans-serif;
+
+box-sizing: border-box;
+}
+
+body{
+    background-color: #002339 ;
+    color: white;
+}
+
+.container{
+    margin: 12%;
+
+    width: 90%;
+
+    max-width: 700px;
+}
+
+
+.display{
+    width: 100%;
+
+    margin-top: 50px;
+
+    margin-bottom: 30px;
+
+    background: #fff;
+
+    color: #889;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 26px 20px;
+
+    border-radius: 5px;
+}
+
+
+.container h1{
+    font-weight: 500;
+
+    font-size: 45px;
+
+
+}
+
+
+
+
+.container h1 span{
+    color: #019f55;
+
+    border-bottom: 4px solid #019;
+
+    padding-bottom: 7px;
+}
+
+.display img{
+    width: 30px;
+
+    cursor: pointer;
+}
+
+.display input{
+    border: 0;
+
+    outline: 0;
+
+
+}
+
+.container button img{
+    width: 28px;
+
+    margin: 10px;
+}
+
+
+.container button{
+    border: 0;
+
+    outline: 0;
+
+    background: #019f55 ;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 300;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 16px 26px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
+</style>
+
+
+</head>
+<body>
+
+    <div class="container">
+        <h1> Generate a <br> <span> Random Password </span> <br>by Rupayan </h1>
+
+<div class="display">
+    <input type="text"  id="password" placeholder="Password" >
+
+    <img onclick="copy()" src="images/copy.png" alt="">
+</div>
+<button onclick="createThePassword()" > <img src="images/generate.png" alt="">Generate Password </button>
+
+    </div>
+
+
+
+    <script>
+
+let passwordBox = document.getElementById("password");
+
+let passwordLength = 14
+
+let upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+let lowerCase = "abcdefghijklmnopqrstuvwxyz"
+
+let numbers = "0123456789"
+
+let symbols = "!@#$%^&*_-+="
+
+let all = upperCase + lowerCase + numbers +  symbols 
+
+function createThePassword(){
+    let password = ""
+
+    password += lowerCase [ Math.floor(Math.random() * lowerCase.length) ]
+
+
+    password += upperCase [ Math.floor(Math.random() * upperCase.length) ]
+
+
+    password += numbers [ Math.floor(Math.random() * numbers.length) ]
+
+
+    password += symbols [ Math.floor(Math.random() * symbols.length) ]
+
+
+    while( passwordLength > password.length ){
+        password += all [ Math.floor(Math.random() * all.length) ]
+    }
+
+    passwordBox.value = password
+
+
+}
+
+
+function copy(){
+ //   passwordBox.select()
+
+  //  document.execCommand("copy")
+
+  const passwordText = passwordBox.value;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(passwordText)
+            .then(() => {
+                console.log('Password copied to clipboard');
+            })
+            .catch(err => {
+                console.error('Unable to copy password to clipboard', err);
+            });
+    } else {
+        // Fallback for browsers that don't support the Clipboard API
+        passwordBox.select();
+        document.execCommand('copy');
+        console.log('Password copied to clipboard (fallback)');
+    }
+
+
+}
+
+
+    </script>
+
+    
+</body>
+</html>
